@@ -1,0 +1,215 @@
+version: "3.6"
+
+networks:
+  splunknettest:
+    driver: macvlan
+    driver_opts:
+      parent: enx6045bdf9a68c
+    ipam:
+      driver: default
+      config:
+        - gateway: 192.168.1.254
+          subnet: 192.168.1.0/24
+services:
+  #deployer
+  dp1:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.10
+        aliases: 
+          - dp1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: dp1
+    container_name: dp1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  #search head 1
+  sh1:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.11
+        aliases:
+          - sh1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: sh1
+    container_name: sh1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  sh2:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.12
+        aliases:
+          - sh2
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: sh2
+    container_name: sh2
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  sh3:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.13
+        aliases:
+          - sh3
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: sh3
+    container_name: sh3
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  #cluster manager
+  cm1:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.20
+        aliases:
+          - cm1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: cm1
+    container_name: cm1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  idx1:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.21
+        aliases:
+          - idx1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: idx1
+    container_name: idx1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  idx2:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.22
+        aliases:
+          - idx2
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: idx2
+    container_name: idx2
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
+  # idx3:
+  #   networks:
+  #     splunknettest:
+  #       ipv4_address: 192.168.1.23
+  #       aliases:
+  #         - idx3
+  #   image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+  #   hostname: idx3
+  #   container_name: idx3
+  #   environment:
+  #     - SPLUNK_START_ARGS=--accept-license
+  #     - SPLUNK_PASSWORD=splunk_dev
+  #   ports:
+  #     - 8000
+  #     - 8089
+  #     - 9100
+  #     - 9997
+  #   volumes:
+  #     - ./default.yml:/tmp/defaults/default.yml
+
+  # idx4:
+  #   networks:
+  #     splunknettest:
+  #       ipv4_address: 192.168.1.24
+  #       aliases:
+  #         - idx4
+  #   image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+  #   hostname: idx4
+  #   container_name: idx4
+  #   environment:
+  #     - SPLUNK_START_ARGS=--accept-license
+  #     - SPLUNK_PASSWORD=splunk_dev
+  #   ports:
+  #     - 8000
+  #     - 8089
+  #     - 9100
+  #     - 9997
+  #   volumes:
+  #     - ./default.yml:/tmp/defaults/default.yml
+
+  ds1:
+    networks:
+      splunknettest:
+        ipv4_address: 192.168.1.30
+        aliases:
+          - ds1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: ds1
+    container_name: ds1
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=splunk_dev
+    ports:
+      - 8000
+      - 8089
+      - 9100
+      - 9997
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
